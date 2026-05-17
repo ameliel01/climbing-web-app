@@ -1,0 +1,10 @@
+{
+    "themes": [
+        {
+            "name": "theme_climbing_app",
+            "types": [
+                "login"
+            ]
+        }
+    ]
+}

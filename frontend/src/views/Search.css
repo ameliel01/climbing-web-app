@@ -1,0 +1,72 @@
+.user-search-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .search-bar {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .filter-buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .filter-buttons button {
+    flex: 1;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .filter-buttons button.active {
+    background-color: #1d4ed8;
+  }
+  
+  .user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .user-name {
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .follow-button {
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    background-color: #1f2937;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .follow-button.followed {
+    background-color: white;
+    color: #1f2937;
+    border: 1px solid #1f2937;
+  }
+  
