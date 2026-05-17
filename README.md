@@ -30,85 +30,80 @@ En développement, Keycloak et la base de données tournent dans des containers 
 
 ### Cas d'usage
 
-```plantuml
-@startuml
-left to right direction
-actor "Visitor" as v
-actor "Registered User" as u
-actor "Admin" as a
-u <-- a
+```mermaid
+flowchart LR
+  %% Actors
+  Visitor((Visitor))
+  RegisteredUser((Registered User))
+  Admin((Admin))
 
-rectangle "Application" {
-  
-  package "Authentification" {
-    usecase "Register" as R
-    usecase "Login" as C
-    usecase "Disconnect" as D
-  }
-  
-  package "1. Accueil (Feed)" {
-    usecase "View friends' performances feed" as F
-    usecase "Like performance" as Like
-    usecase "Comment on performance" as Comment
-  }
+  %% Authentication
+  subgraph Authentification
+    R[Register]
+    C[Login]
+    D[Disconnect]
+  end
 
-  package "2. Messagerie" {
-    usecase "Send message" as PM
-    usecase "View messages" as VM
-    usecase "Create private chat" as NC
-  }
+  %% Accueil (Feed)
+  subgraph Accueil
+    F[View friends' performances feed]
+    Like[Like performance]
+    Comment[Comment on performance]
+  end
 
-  package "3. Performances & Objectifs" {
-    usecase "Create performance" as CP
-    usecase "Update/Delete performance" as UDP
-    usecase "View performances" as VP
-    usecase "Set climbing goals" as SG
-  }
+  %% Messagerie
+  subgraph Messagerie
+    PM[Send message]
+    VM[View messages]
+    NC[Create private chat]
+  end
 
-  package "4. Réseau Social" {
-    usecase "Follow user" as FU
-    usecase "Unfollow user" as UF
-    usecase "See friends list" as SF
-  }
+  %% Performances & Objectifs
+  subgraph Performances_Objectifs
+    CP[Create performance]
+    UDP[Update/Delete performance]
+    VP[View performances]
+    SG[Set climbing goals]
+  end
 
-  package "Gestion Admin" {
-    usecase "Create group chat" as CG
-    usecase "Delete group chat" as DG
-    usecase "Rename group chat" as RGC
-  }
+  %% Réseau Social
+  subgraph Reseau_Social
+    FU[Follow user]
+    UF[Unfollow user]
+    SF[See friends list]
+  end
 
-  package "Fonctionnalités supplémentaires" {
-    usecase "View climbing routes nearby" as VR
-  }
-}
+  %% Gestion Admin
+  subgraph Gestion_Admin
+    CG[Create group chat]
+    DG[Delete group chat]
+    RGC[Rename group chat]
+  end
 
-' Relations visiteurs
-v --> R
+  %% Fonctionnalités supplémentaires
+  VR[View climbing routes nearby]
 
-' Relations utilisateurs enregistrés
-u --> C
-u --> F
-u --> Like
-u --> Comment
-u --> PM
-u --> VM
-u --> NC
-u --> CP
-u --> SF
-u --> UDP
-u --> VP
-u --> D
-u --> SG
-u --> FU
-u --> UF
-u --> VR
-
-' Relations admin
-a --> CG
-a --> DG
-a --> RGC
-
-@enduml
+  %% Relations
+  Visitor --> R
+  RegisteredUser --> C
+  RegisteredUser --> F
+  RegisteredUser --> Like
+  RegisteredUser --> Comment
+  RegisteredUser --> PM
+  RegisteredUser --> VM
+  RegisteredUser --> NC
+  RegisteredUser --> CP
+  RegisteredUser --> SF
+  RegisteredUser --> UDP
+  RegisteredUser --> VP
+  RegisteredUser --> D
+  RegisteredUser --> SG
+  RegisteredUser --> FU
+  RegisteredUser --> UF
+  RegisteredUser --> VR
+  Admin --> CG
+  Admin --> DG
+  Admin --> RGC
 
 ```
 
@@ -254,103 +249,83 @@ frontend
 #### Schéma de votre base de donnée
 
 
-```plantuml
-class User {
-  id
-  email
-  username
-  first_name
-  last_name
-}
+```mermaid
+erDiagram
+  USER {
+    integer id
+    string email
+    string username
+    string first_name
+    string last_name
+  }
+  POST {
+    integer id
+    integer user_id
+    integer route_id
+    string content
+  }
+  COMMENT {
+    integer id
+    integer user_id
+    integer post_id
+    string content
+  }
+  FRIENDSHIP {
+    integer id
+    integer follower_id
+    integer followed_id
+    string status
+  }
+  LIKE {
+    integer id
+    integer user_id
+    integer post_id
+  }
+  ROUTE {
+    integer id
+    integer userId
+    date date
+    string route
+    string typeOfRoute
+    string cotation
+    string feeling
+  }
+  ROOM {
+    integer id
+    string name
+    string type
+  }
+  ROOMUSER {
+    integer roomId
+    integer userId
+    string role
+  }
+  MESSAGE {
+    integer id
+    string content
+    integer userId
+    integer roomId
+  }
 
-class Post {
-  id
-  user_id
-  route_id
-  content
-}
-
-class Comment {
-  id
-  user_id
-  post_id
-  content
-}
-
-class Friendship {
-  id
-  follower_id
-  followed_id
-  status
-}
-
-class Like {
-  id
-  user_id
-  post_id
-}
-
-class Route {
-  id
-  userId
-  date
-  route
-  typeOfRoute
-  cotation
-  feeling
-}
-
-class Room {
-  id
-  name
-  type
-}
-
-class RoomUser {
-  roomId
-  userId
-  role
-}
-
-class Message {
-  id
-  content
-  userId
-  roomId
-}
-
-' Relations
-
-' POSTS & ROUTES
-Route "1" -- "1" Post : hasOne
-Post "n" -- "1" Route : belongsTo
-Post "1" -- "n" Comment : hasMany
-Post "1" -- "n" Like : hasMany
-
-' COMMENTS & LIKES
-Comment "n" -- "1" Post : belongsTo
-Like "n" -- "1" Post : belongsTo
-
-' MESSAGES & ROOMS
-Room "n" -- "n" User : belongsToMany (via RoomUser)
-Room "1" -- "n" Message : hasMany
-RoomUser "n" -- "1" Room : belongsTo
-RoomUser "n" -- "1" User : belongsTo
-Message "n" -- "1" User : belongsTo
-Message "n" -- "1" Room : belongsTo
-
-' USER & POSTS, COMMENTS, LIKES
-User "1" -- "n" Post : hasMany
-User "1" -- "n" Comment : hasMany
-User "1" -- "n" Like : hasMany
-User "1" -- "n" Message : hasMany
-User "1" -- "n" Route : hasMany
-
-' FRIENDSHIPS 
-
-Friendship "n" -- "1" User : follower_id
-Friendship "n" -- "1" User : followed_id
-
+  USER ||--o{ POST : "hasMany"
+  POST ||--o{ COMMENT : "hasMany"
+  POST ||--o{ LIKE : "hasMany"
+  COMMENT }o--|| POST : "belongsTo"
+  LIKE }o--|| POST : "belongsTo"
+  ROOM ||--o{ ROOMUSER : "hasMany"
+  ROOM ||--o{ MESSAGE : "hasMany"
+  ROOMUSER }o--|| ROOM : "belongsTo"
+  ROOMUSER }o--|| USER : "belongsTo"
+  MESSAGE }o--|| USER : "belongsTo"
+  MESSAGE }o--|| ROOM : "belongsTo"
+  USER ||--o{ COMMENT : "hasMany"
+  USER ||--o{ LIKE : "hasMany"
+  USER ||--o{ MESSAGE : "hasMany"
+  USER ||--o{ ROUTE : "hasMany"
+  ROUTE ||--|| POST : "hasOne"
+  POST }o--|| ROUTE : "belongsTo"
+  FRIENDSHIP }o--|| USER : "follower_id"
+  FRIENDSHIP }o--|| USER : "followed_id"
 
 ```
 
