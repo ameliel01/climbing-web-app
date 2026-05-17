@@ -1,0 +1,51 @@
+.navbar {
+    background-color: white;
+    padding: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a4a4a;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: black;
+    padding: 8px 16px;
+  }
+  
+  .nav-links a.active-link {
+    border: 2px solid #007bff; /* Encadrement bleu */
+    border-radius: 4px;
+    color: #007bff; /* Texte bleu */
+    font-weight: bold;
+  }
+  
+  .nav-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .exit-button {
+    background-color: green;
+    color: white;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  
+  .exit-button:hover {
+    background-color: #222;
+  }

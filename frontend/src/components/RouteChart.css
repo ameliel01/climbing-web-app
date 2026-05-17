@@ -1,0 +1,16 @@
+.route-chart {
+  padding: 20px;
+}
+
+.route-filters {
+  margin-bottom: 20px;
+}
+
+.route-filters label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.route-filters input {
+  margin-right: 5px;
+}

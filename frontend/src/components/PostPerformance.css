@@ -1,0 +1,106 @@
+.post-performance {
+    background-color: white;
+    padding: 24px;
+    margin-bottom: 48px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .post-date {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 8px;
+  }
+  
+  .post-title {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+  }
+  
+  .post-meta {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 14px;
+    color: #4b5563;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  
+  .post-ressenti {
+    margin-top: 16px;
+    font-style: italic;
+    font-size: 14px;
+    color: #374151;
+  }
+  
+  .post-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  .button-profil, .button-like{
+    color: #2563eb;
+    cursor: pointer;
+  }
+  
+  .button-profil:hover, .button-like:hover {
+    text-decoration: underline;
+  }
+  
+  .post-commentaires {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #374151;
+  }
+  
+  .commentaire-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .commentaire-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  
+  .commentaire-form input {
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  
+  .commentaire-form input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+  
+  .commentaire-form button {
+    background-color: #2563eb;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    align-self: flex-end;
+  }
+  
+  .commentaire-form button:hover {
+    background-color: #1d4ed8;
+  }
+  
